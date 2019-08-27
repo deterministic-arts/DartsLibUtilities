@@ -1,0 +1,17 @@
+
+coffee {
+
+    server {
+
+        host = localhost
+        port = "8080"
+    }
+
+    db {
+
+        host = "${..server.host}"
+        port = "5432"
+        instance = "coffee"
+        url = "jdbc:postgresql://${.host}:${.port}/${.instance}"
+    }
+}
