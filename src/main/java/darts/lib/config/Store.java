@@ -1,5 +1,6 @@
 package darts.lib.config;
 
+import darts.lib.util.Traversable;
 import io.vavr.control.Try;
 
 import java.io.File;
@@ -36,6 +37,16 @@ public interface Store {
      */
 
     Optional<String> query(String key);
+
+    /**
+     * Answers a traversable, that yields all key/value pairs
+     * accessible via this store. All keys are unique, and in case
+     * of composite stores, only the values accessible via {@link #query(String)}
+     * are produced by the enumeration.
+     *
+     * @return a traversable, that produces all key/value pairs in this store
+     */
+    Traversable<Map.Entry<String, String>> enumerate();
 
     // region Derived Look Up And Expansion
 
