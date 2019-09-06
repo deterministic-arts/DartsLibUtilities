@@ -63,8 +63,6 @@ public class TopologicalOrderTest {
     private void assertConstraints(List<Node> nodes, String... constraints) {
         final var idx = new HashMap<String,Integer>();
         nodes.forEach(n -> idx.put(n.key, idx.size()));
-        System.out.println(nodes);
-        System.out.println(idx);
         for (int p = 0; p < constraints.length; ) {
             final String after = constraints[p++];
             final String before = constraints[p++];
