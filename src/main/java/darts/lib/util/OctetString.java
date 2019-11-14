@@ -194,4 +194,61 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
     }
 
     // endregion
+
+    // region Builder
+
+    public Builder toBuilder() {
+        return new Builder(length()).append(data, 0, data.length);
+    }
+
+    public static Builder builder() {
+        return new Builder(16);
+    }
+
+    public static final class Builder {
+
+        private byte[] buffer;
+        private int length;
+
+        Builder(int capacity) {
+            buffer = new byte[Math.max(capacity, 16)];
+            length = 0;
+        }
+
+        public OctetString toOctetString() {
+            return length == 0? empty() : new OctetString(Arrays.copyOf(buffer, length));
+        }
+
+        public int length() {
+            return length;
+        }
+
+        public Builder append(int octet) {
+            ensureRoom(1);
+            buffer[length++] = (byte) (0xFF & octet);
+            return this;
+        }
+
+        public Builder append(byte[] buf, int start, int end) {
+            if (end < start || start < 0 || buf.length < end) throw new IndexOutOfBoundsException();
+            else {
+                final int len = end - start;
+                ensureRoom(len);
+                System.arraycopy(buf, start, buffer, length, len);
+                length += len;
+                return this;
+            }
+        }
+
+        private void ensureRoom(int required) {
+            if (length + required > buffer.length) {
+                final int missing = required + length - buffer.length;
+                final int defaultGrowth = buffer.length + (buffer.length >>> 1);
+                final int newLen = Math.max(defaultGrowth, buffer.length + missing);
+                buffer = Arrays.copyOf(buffer, newLen);
+            }
+        }
+    }
+
+    // endregion
 }
