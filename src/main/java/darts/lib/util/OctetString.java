@@ -229,6 +229,14 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
             return this;
         }
 
+        public Builder append(byte[] buffer) {
+            return append(buffer, 0, buffer.length);
+        }
+
+        public Builder append(byte[] buffer, int start) {
+            return append(buffer, start, buffer.length);
+        }
+
         public Builder append(byte[] buf, int start, int end) {
             if (end < start || start < 0 || buf.length < end) throw new IndexOutOfBoundsException();
             else {
