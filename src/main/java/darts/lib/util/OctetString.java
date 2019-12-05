@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
@@ -213,6 +214,15 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
         Builder(int capacity) {
             buffer = new byte[Math.max(capacity, 16)];
             length = 0;
+        }
+
+        public String toText(Charset cs) {
+            return new String(buffer, 0, length, cs);
+        }
+
+        public Builder clear() {
+            length = 0;
+            return this;
         }
 
         public OctetString toOctetString() {
