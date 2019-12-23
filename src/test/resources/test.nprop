@@ -4,7 +4,9 @@ coffee {
     server {
 
         host = localhost
-        port = "8080"
+        port = 8080
+
+        max_mem = +1024.0e+0
     }
 
     db {

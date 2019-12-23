@@ -206,6 +206,79 @@ public final class Parser {
             return isNameStart(ch) || '0' <= ch && ch <= '9';
         }
 
+        private void parseNumber() throws IOException {
+            final int BEFORE_SIGN = 0, AFTER_SIGN = 1, INTEGER = 2;
+            final int AFTER_DOT = 3, FRACTION = 4, AFTER_EXP_MARKER = 5;
+            final int AFTER_EXP_SIGN = 6, EXPONENT = 7;
+            int state = BEFORE_SIGN;
+            loop: for (;;) {
+                final int ch = peek();
+                switch (ch) {
+                default: break loop;
+                case '+': case '-':
+                    switch (state) {
+                    case BEFORE_SIGN:
+                        if (ch != '+') builder.append((char) read());
+                        else read();
+                        state = AFTER_SIGN;
+                        continue loop;
+                    case AFTER_EXP_MARKER:
+                        builder.append((char) read());
+                        state = AFTER_EXP_SIGN;
+                        continue loop;
+                    }
+                    break loop;
+                case '.':
+                    switch (state) {
+                    case INTEGER:
+                        builder.append((char) read());
+                        state = AFTER_DOT;
+                        continue loop;
+                    }
+                    break loop;
+                case 'e': case 'E':
+                    switch (state) {
+                    case INTEGER:
+                        builder.append(".e");
+                        read();
+                        state = AFTER_EXP_MARKER;
+                        continue loop;
+                    case FRACTION:
+                        builder.append((char) read());
+                        state = AFTER_EXP_MARKER;
+                        continue loop;
+                    }
+                    break loop;
+                case '0': case '1': case '2': case '3': case '4':
+                case '5': case '6': case '7': case '8': case '9':
+                    switch (state) {
+                    case AFTER_SIGN: case BEFORE_SIGN:
+                        state = INTEGER; // Fall Through
+                    case INTEGER:
+                        builder.append((char) read());
+                        continue loop;
+                    case AFTER_DOT:
+                        state = FRACTION;   // Fall Through
+                    case FRACTION:
+                        builder.append((char) read());
+                        continue loop;
+                    case AFTER_EXP_MARKER: case AFTER_EXP_SIGN:
+                        state = EXPONENT;   // Fall Through
+                    case EXPONENT:
+                        builder.append((char) read());
+                        continue loop;
+                    }
+                    break loop;
+                }
+            }
+            switch (state) {
+            case INTEGER: case FRACTION: case EXPONENT:
+                set(WORD, finish());
+                return;
+            }
+            throw new SyntaxException(location(), "unsupported number syntax");
+        }
+
         private void parseLiteral() throws IOException {
 
             for (;;) {
@@ -305,7 +378,8 @@ public final class Parser {
                     case '+': case '-':
                     case '0': case '1': case '2': case '3': case '4':
                     case '5': case '6': case '7': case '8': case '9':
-                        throw new UnsupportedOperationException("not yet");
+                        parseNumber();
+                        return;
                     default:
                         if (!isNameStart(ch)) {
                             throw new SyntaxException(position(), "unexpected character '%c'", (char) ch);
