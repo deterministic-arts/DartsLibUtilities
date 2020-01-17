@@ -86,6 +86,20 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
 
     // endregion
 
+    // region Sub-String Comparisons
+
+    public boolean startsWith(OctetString os) {
+        final int olen = os.data.length;
+        return data.length >= olen && Arrays.equals(data, 0, olen, os.data, 0, olen);
+    }
+
+    public boolean endsWith(OctetString os) {
+        final int olen = os.data.length;
+        return data.length >= olen && Arrays.equals(data, data.length - olen, olen, os.data, 0, olen);
+    }
+
+    // endregion
+
     // region Accessing Content
 
     public int octetAt(int index) {
