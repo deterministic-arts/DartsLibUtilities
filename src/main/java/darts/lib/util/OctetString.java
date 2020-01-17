@@ -239,6 +239,25 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
             return this;
         }
 
+        public Builder append(OctetString buf) {
+            return append(buf, 0, buf.length());
+        }
+
+        public Builder append(OctetString buf, int start) {
+            return append(buf, start, buf.length());
+        }
+
+        public Builder append(OctetString buf, int start, int end) {
+            if (start < 0 || end < start || buf.length() < end) throw new IndexOutOfBoundsException();
+            else {
+                final int len = end - start;
+                ensureRoom(len);
+                System.arraycopy(buf.data, start, buffer, length, len);
+                length += len;
+                return this;
+            }
+        }
+
         public Builder append(byte[] buffer) {
             return append(buffer, 0, buffer.length);
         }
