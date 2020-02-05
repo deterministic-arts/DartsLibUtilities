@@ -253,6 +253,31 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
             return this;
         }
 
+        public Builder append(short value, ByteOrder order) {
+            order.put(value, this);
+            return this;
+        }
+
+        public Builder append(int value, ByteOrder order) {
+            order.put(value, this);
+            return this;
+        }
+
+        public Builder append(long value, ByteOrder order) {
+            order.put(value, this);
+            return this;
+        }
+
+        public Builder append(float value, ByteOrder order) {
+            order.put(value, this);
+            return this;
+        }
+
+        public Builder append(double value, ByteOrder order) {
+            order.put(value, this);
+            return this;
+        }
+
         public Builder append(OctetString buf) {
             return append(buf, 0, buf.length());
         }
