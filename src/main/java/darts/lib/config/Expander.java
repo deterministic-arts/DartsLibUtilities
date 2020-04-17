@@ -168,20 +168,17 @@ class Expander {
         }
 
         void advance() {
-            for (;;) {
-                if (position >= length) {
-                    value = "";
-                    token = END;
-                    return;
-                } else {
-                    switch (text.charAt(position)) {
-                        case '$':
-                            consumeSubst();
-                            return;
-                        default:
-                            consumeText();
-                            return;
-                    }
+            if (position >= length) {
+                value = "";
+                token = END;
+            } else {
+                switch (text.charAt(position)) {
+                    case '$':
+                        consumeSubst();
+                        break;
+                    default:
+                        consumeText();
+                        break;
                 }
             }
         }
