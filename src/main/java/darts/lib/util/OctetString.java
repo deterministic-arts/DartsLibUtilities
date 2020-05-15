@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -125,6 +126,14 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
 
     public byte[] toByteArray() {
         return data.clone();
+    }
+
+    public ByteBuffer toByteBuffer(boolean readOnly) {
+        return readOnly? ByteBuffer.wrap(data).asReadOnlyBuffer() : ByteBuffer.wrap(data.clone());
+    }
+
+    public ByteBuffer toByteBuffer() {
+        return toByteBuffer(true);
     }
 
     @Override
