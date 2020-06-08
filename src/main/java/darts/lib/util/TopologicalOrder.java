@@ -62,7 +62,7 @@ public final class TopologicalOrder<K, N> {
 
     public static class CircularityException extends IllegalArgumentException {
 
-        private Collection<?> nodes;
+        private final Collection<?> nodes;
 
         public CircularityException(Collection<?> nodes) {
             this.nodes = ImmutableList.copyOf(nodes);

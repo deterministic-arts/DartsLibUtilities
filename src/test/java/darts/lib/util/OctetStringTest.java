@@ -2,6 +2,7 @@ package darts.lib.util;
 
 import org.junit.Test;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -159,6 +160,30 @@ public class OctetStringTest {
             offs += b.length;
         }
         assertEquals(offs, rs.length());
+    }
+
+    // endregion
+
+    // region Serialization
+
+    @Test
+    public void serialization() throws IOException, ClassNotFoundException {
+        assertEquals(OctetString.empty(), rountrip(OctetString.empty()));
+        assertEquals(OctetString.of(1, 2, 3, 4, 5), rountrip(OctetString.of(1, 2, 3, 4, 5)));
+    }
+
+    private OctetString rountrip(OctetString object) throws IOException, ClassNotFoundException {
+        final var ob = new ByteArrayOutputStream();
+        final var os = new ObjectOutputStream(ob);
+        os.writeObject(object);
+        os.close();
+        ob.close();
+        final var ib = new ByteArrayInputStream(ob.toByteArray());
+        final var is = new ObjectInputStream(ib);
+        final var result = (OctetString) is.readObject();
+        is.close();
+        ib.close();
+        return result;
     }
 
     // endregion

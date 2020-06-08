@@ -3,7 +3,7 @@ package darts.lib.util;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.io.Serializable;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
@@ -89,6 +89,7 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
 
     // region Sub-String Comparisons
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean startsWith(OctetString os) {
         final int olen = os.data.length;
         return data.length >= olen && Arrays.equals(data, 0, olen, os.data, 0, olen);
@@ -209,7 +210,22 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
         }
 
         private Object readResolve() {
-            return fromByteArray(data);
+            return data.length == 0? EMPTY : new OctetString(data);
+        }
+
+        private void writeObject(ObjectOutputStream stream) throws IOException {
+            stream.writeInt(data.length);
+            stream.write(data);
+        }
+
+        private void readObject(ObjectInputStream stream) throws IOException {
+            final int len = stream.readInt();
+            if (len < 0) throw new InvalidObjectException("octet string broke in hibernation");
+            else {
+                final var buffer = new byte[len];
+                stream.readFully(buffer);
+                data = buffer;
+            }
         }
     }
 

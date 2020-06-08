@@ -22,6 +22,7 @@ import java.util.Optional;
  * substitution markers.
  */
 
+@SuppressWarnings("SameReturnValue")
 public interface Store {
 
     /**

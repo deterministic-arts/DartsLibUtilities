@@ -7,7 +7,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public final class Parser {
 
@@ -23,7 +23,7 @@ public final class Parser {
 
     public static Map<String, String> parse(File file) throws IOException {
         try (final InputStream stream = new FileInputStream(file);
-             final Reader reader = new InputStreamReader(stream, Charset.forName("utf-8"))) {
+             final Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
             return parse(file.toString(), reader);
         }
     }
@@ -41,7 +41,7 @@ public final class Parser {
         cnx.setAllowUserInteraction(false);
 
         try (final InputStream stream = cnx.getInputStream();
-             final Reader reader = new InputStreamReader(stream, Charset.forName("utf-8"))) {
+             final Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
 
             return parse(file.toExternalForm(), reader);
         }
