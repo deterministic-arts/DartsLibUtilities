@@ -1,4 +1,4 @@
-package darts.lib.util;
+package darts.arch.util;
 
 import org.junit.Test;
 

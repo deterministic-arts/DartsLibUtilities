@@ -1,4 +1,4 @@
-package darts.lib.config;
+package darts.arch.config;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package darts.lib.util;
+package darts.arch.util;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;

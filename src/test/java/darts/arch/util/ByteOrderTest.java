@@ -1,8 +1,8 @@
-package darts.lib.util;
+package darts.arch.util;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ByteOrderTest {
 

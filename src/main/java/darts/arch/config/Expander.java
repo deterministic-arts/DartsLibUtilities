@@ -1,6 +1,6 @@
-package darts.lib.config;
+package darts.arch.config;
 
-import darts.lib.util.Pair;
+import darts.arch.util.Pair;
 
 import java.util.NoSuchElementException;
 

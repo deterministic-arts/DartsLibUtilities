@@ -1,4 +1,4 @@
-package darts.lib.util;
+package darts.arch.util;
 
 import java.util.function.*;
 import java.util.stream.Collector;
