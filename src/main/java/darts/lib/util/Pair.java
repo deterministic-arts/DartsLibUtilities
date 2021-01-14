@@ -1,4 +1,4 @@
-package darts.arch.util;
+package darts.lib.util;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,4 +1,4 @@
-package darts.arch.util;
+package darts.lib.util;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.Test;

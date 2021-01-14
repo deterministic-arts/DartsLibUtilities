@@ -1,4 +1,4 @@
-package darts.arch.util;
+package darts.lib.util;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;

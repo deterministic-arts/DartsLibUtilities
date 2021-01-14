@@ -1,5 +1,6 @@
-package darts.arch.util;
+package darts.lib.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.*;
@@ -118,7 +119,7 @@ public class OctetStringTest {
         for (int p = 0; p < nIterations; ++p) {
             final var expected = OctetString.randomString(rng.nextInt(maxLen));
             final var actual = OctetString.fromString(expected.toString());
-            assertEquals(expected, actual);
+            Assert.assertEquals(expected, actual);
         }
     }
 

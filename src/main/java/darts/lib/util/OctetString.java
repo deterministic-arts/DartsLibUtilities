@@ -1,4 +1,4 @@
-package darts.arch.util;
+package darts.lib.util;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.NoSuchElementException;
 import java.util.PrimitiveIterator;
+
+/**
+ * An immutable sequence of bytes/octets.
+ */
 
 @SuppressWarnings("WeakerAccess")
 public final class OctetString implements Serializable, Comparable<OctetString>, Iterable<Integer> {
@@ -127,6 +131,18 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
 
     public byte[] toByteArray() {
         return data.clone();
+    }
+
+    public void getBytes(int srcStart, int srcEnd, byte[] buffer, int dstStart) {
+        if (srcStart < 0 || srcEnd < srcStart || data.length < srcEnd) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            final int len = srcEnd - srcStart;
+            if (dstStart < 0 || buffer.length - len < dstStart) throw new IndexOutOfBoundsException();
+            else {
+                System.arraycopy(data, srcStart, buffer, dstStart, len);
+            }
+        }
     }
 
     public ByteBuffer toByteBuffer(boolean readOnly) {

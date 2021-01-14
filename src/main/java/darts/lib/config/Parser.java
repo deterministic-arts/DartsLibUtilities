@@ -1,4 +1,4 @@
-package darts.arch.config;
+package darts.lib.config;
 
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;

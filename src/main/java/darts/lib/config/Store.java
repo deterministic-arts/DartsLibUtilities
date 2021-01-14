@@ -1,6 +1,6 @@
-package darts.arch.config;
+package darts.lib.config;
 
-import darts.arch.util.Traversable;
+import darts.lib.util.Traversable;
 import io.vavr.control.Try;
 
 import java.io.File;
