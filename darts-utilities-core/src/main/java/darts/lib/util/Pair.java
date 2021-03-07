@@ -1,8 +1,5 @@
 package darts.lib.util;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -16,17 +13,14 @@ public final class Pair<F,S> implements Serializable {
         this.second = second;
     }
 
-    @JsonCreator
-    public static <F,S> Pair<F,S> of(@JsonProperty("first") F first, @JsonProperty("second") S second) {
+    public static <F,S> Pair<F,S> of(F first, S second) {
         return new Pair<>(first, second);
     }
 
-    @JsonProperty("first")
     public F first() {
         return first;
     }
 
-    @JsonProperty("second")
     public S second() {
         return second;
     }

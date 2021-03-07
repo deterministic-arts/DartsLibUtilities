@@ -1,8 +1,5 @@
 package darts.lib.util;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -71,7 +68,6 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
         return array.length == 0? EMPTY : new OctetString(array.clone());
     }
 
-    @JsonCreator
     public static OctetString fromString(String s) {
         final byte[] arr = Base64.getUrlDecoder().decode(s);
         return arr.length == 0? EMPTY : new OctetString(arr);
@@ -154,7 +150,6 @@ public final class OctetString implements Serializable, Comparable<OctetString>,
     }
 
     @Override
-    @JsonValue
     public String toString() {
         return Base64.getUrlEncoder().encodeToString(data);
     }
