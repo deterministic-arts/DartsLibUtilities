@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>darts-utilities-jackson-support</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>de.deterministic-arts.library</groupId>
             <artifactId>darts-utilities-core</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
