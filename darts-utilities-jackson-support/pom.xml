@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>darts-utilities-jackson-module</artifactId>
+    <artifactId>darts-utilities-jackson-support</artifactId>
     <version>1.1-SNAPSHOT</version>
 
     <properties>
@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>de.deterministic-arts.library</groupId>
-            <artifactId>darts-utilities</artifactId>
+            <artifactId>darts-utilities-core</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
         <dependency>

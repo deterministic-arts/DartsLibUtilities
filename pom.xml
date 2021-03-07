@@ -11,6 +11,6 @@
 
     <modules>
         <module>darts-utilities-core</module>
-        <module>darts-utilities-jackson-module</module>
+        <module>darts-utilities-jackson-support</module>
     </modules>
 </project>
