@@ -2,9 +2,13 @@ package darts.lib.util.serialization.jackson;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import darts.lib.util.OctetString;
 import org.junit.Test;
+
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,10 +32,10 @@ public class ModuleTest {
         mapper.findAndRegisterModules();
 
         final var string = OctetString.of(0, 1, 2, 3);
-        final var encoded = mapper.writeValueAsString(new Container(string));
-        final var decoded = mapper.readValue(encoded, Container.class);
+        final var encoded = mapper.writeValueAsString(Collections.singletonList(new Container(string)));
+        final List<Container> decoded = mapper.readValue(encoded, new TypeReference<List<Container>>(){});
 
-        assertEquals(string, decoded.content);
+        assertEquals(string, decoded.get(0).content);
     }
 
     static final class Container {

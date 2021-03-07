@@ -18,7 +18,6 @@ final class OctetStringDeserializer extends StdDeserializer<OctetString> {
     throws IOException, JsonProcessingException {
         switch (jsonParser.getCurrentToken()) {
         case VALUE_NULL:
-            jsonParser.nextToken();
             return null;
         case VALUE_STRING:
             final var data = jsonParser.getValueAsString();
@@ -29,7 +28,6 @@ final class OctetStringDeserializer extends StdDeserializer<OctetString> {
                 deserializationContext.handleWeirdStringValue(OctetString.class, data, "malformed octet string");
                 throw new IllegalStateException("not reached");
             }
-            jsonParser.nextToken();
             return result;
         }
         return (OctetString) deserializationContext.handleUnexpectedToken(OctetString.class, jsonParser);
